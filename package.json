@@ -1,0 +1,1 @@
+{"name":"tvoy-consilium","version":"0.2.0","private":true,"type":"module","description":"Твой консилиум — клинические задачи для врачей","scripts":{"prepare-data":"node scripts/prepare-data.mjs","test":"node --test scripts/game.test.mjs","validate":"node scripts/validate.mjs"}}

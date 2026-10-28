@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru"><head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Твой консилиум — клиническая практика для врачей</title>
+ <meta name="description" content="Ежедневные клинические задачи для врачей. Шесть подсказок, твой диагноз и разбор с источниками. Практикуйся и открывай достижения.">
+ <meta name="theme-color" content="#0a3282"><link rel="icon" href="favicon.svg" type="image/svg+xml">
+ <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link rel="stylesheet" href="app.css"><link rel="stylesheet" href="consilium.css">
+ <script src="themes.js"></script><script src="icons.js"></script><script src="data/cases.js"></script>
+</head>
+<body class="app consilium" data-theme="bento">
+ <header class="topbar">
+  <a class="brand" href="index.html" aria-label="Твой консилиум — главная"><img class="consilium-mark" src="favicon.svg" width="44" height="44" alt=""><span class="brand-name"><span>Твой</span><strong>консилиум</strong></span></a>
+  <nav class="appnav" aria-label="Навигация"><button id="daily-button" class="nav-active" type="button">Кейс дня</button><button id="archive-button" type="button">Практика</button><button id="achievements-button" type="button">Достижения</button></nav>
+  <div class="topstats"><span class="streak-pill" id="streak-top"></span><span class="avatar" title="Личный прогресс" data-icon="profile"></span></div>
+ </header>
+ <div class="appframe">
+  <aside class="navrail" hidden aria-label="Разделы"><div class="rail-active" data-icon="compass"></div><button type="button" id="rail-archive" aria-label="Все кейсы" data-icon="book"></button><button type="button" id="rail-badges" aria-label="Достижения" data-icon="award"></button></aside>
+  <main class="appmain">
+   <section class="intro"><div class="intro-content"><div class="eyebrow" id="intro-eyebrow">ТВОЙ ЕЖЕДНЕВНЫЙ КОНСИЛИУМ</div><h1 id="intro-title">Собери факты.<br><em>Найди диагноз.</em></h1><p id="intro-copy">Один клинический случай.<br>Новая возможность разобраться.</p><div class="intro-facts"><span>6 подсказок</span><span>50 кейсов</span></div></div><div class="intro-circles" aria-hidden="true"><span></span><span></span><span></span></div><div class="heroart" hidden aria-hidden="true"><div class="artcore" data-icon="compass"></div></div></section>
+   <section class="casepanel" aria-labelledby="case-question">
+    <div class="case-meta"><span class="case-tag" id="case-id"></span><span class="case-mode" id="case-mode">Кейс дня</span><span class="difficulty" id="case-difficulty"></span></div>
+    <div class="question-line"><h2 id="case-question">Какой диагноз?</h2><span class="clue-counter" id="clue-count"></span></div>
+    <div class="clue-progress" id="clue-progress" aria-hidden="true"></div>
+    <div id="clues" class="clues"></div><div class="remaining" id="remaining"></div><div id="guesses" class="guesses" aria-live="polite"></div>
+    <form id="answer-form"><label for="diagnosis">Твоя диагностическая гипотеза</label><div class="inputrow"><input id="diagnosis" autocomplete="off" spellcheck="false" placeholder="Введи диагноз" required><button class="primary" type="submit">Проверить <span data-icon="arrow"></span></button></div></form>
+    <div class="case-actions"><button class="text-button hint-button" id="hint-button" type="button">Открыть подсказку</button><button class="quiet-button" id="reveal-button" type="button">Показать ответ</button></div>
+    <section id="result" class="result" aria-live="polite" hidden></section>
+    <section class="case-milestones" aria-label="Ближайшие достижения"><div class="milestone-heading"><span>Ближайшие достижения</span><button type="button" id="milestone-all" aria-label="Посмотреть все достижения">Все достижения <span data-icon="arrow"></span></button></div><div class="milestone-grid" id="milestone-grid"></div></section>
+   </section>
+   <aside class="progress-column">
+    <section class="progressbox"><div class="section-label">ТВОЯ ПРАКТИКА <span data-icon="spark"></span></div><div class="xpheadline"><strong id="xp-value">0</strong><span>XP</span><small id="level-value">Уровень 1</small></div><div class="xp-track"><div id="xp-track-fill"></div></div><div class="xp-next" id="xp-next"></div><div class="statpair"><div><strong id="streak-value">0</strong><span>дней подряд</span></div><div><strong id="solved-value">0<span>/50</span></strong><span>кейсов решено</span></div></div><div class="week" id="week"></div><div class="dailygoal"><span>Цель на сегодня</span><strong id="daily-goal">1 кейс</strong></div></section>
+    <section class="badgebox"><div class="section-label">ТВОЁ СЛЕДУЮЩЕЕ ДОСТИЖЕНИЕ</div><div class="nextbadge"><div class="medal" data-icon="award"></div><h3 id="next-badge-name">Первый диагноз</h3><p id="next-badge-desc">Реши первый клинический кейс</p></div><button type="button" id="all-badges" class="text-button">Коллекция достижений <span data-icon="arrow"></span></button></section>
+    <div class="garden-growth" hidden aria-hidden="true"></div>
+   </aside>
+  </main>
+ </div>
+ <footer class="appfooter"><span class="footer-name">Твой консилиум</span><span id="preview-note">Прогресс сохраняется в этом браузере</span><span class="footer-note">Для практики клинического мышления</span><label class="design-selector" hidden>Оформление <select id="theme-select" aria-label="Визуальная концепция"></select></label></footer>
+ <dialog id="modal"><div class="dialoghead"><div><div class="eyebrow" id="modal-eyebrow">ЛИЧНАЯ КОЛЛЕКЦИЯ</div><h2 id="modal-title">Достижения</h2></div><button class="close-button" id="modal-close" type="button" aria-label="Закрыть" data-icon="close"></button></div><div id="modal-content"></div></dialog>
+ <div id="toast" class="toast" role="status" hidden></div>
+ <script type="module" src="app.mjs"></script>
+</body></html>

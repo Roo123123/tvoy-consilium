@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {normalize,isCorrect,currentStreak,longestStreak,score,initialState,readState,recordSolve,addReview,earnedBadges} from '../dist/game-core.mjs';
+const c={id:'К001',diagnosis:'Буллёзный пемфигоид',aliases:'Пемфигоид Левера; bullous pemphigoid',difficulty:5,specialty:'Дерматология'};
+test('Ключ ответа принимает ё/е, регистр, пунктуацию и заявленный синоним',()=>{assert.ok(isCorrect(c,'  БУЛЛЕЗНЫЙ ПЕМФИГОИД! '));assert.ok(isCorrect(c,'Пемфигоид Левера'));assert.ok(!isCorrect(c,'пузырчатка'));assert.ok(!isCorrect(c,''));assert.equal(normalize('ATTR-CM'),normalize('attr cm'));});
+test('Награда ограничена, учитывает подсказки и ошибки',()=>{assert.equal(score(1,0),100);assert.equal(score(3,0),76);assert.equal(score(6,1),35);assert.equal(score(6,100),20);});
+test('Повторное решение не увеличивает XP и число уникальных кейсов',()=>{const s=initialState();const first=recordSolve(s,c,{clues:2,misses:0,today:'2026-10-28'});assert.equal(first.reward,88);recordSolve(s,c,{clues:1,misses:0,today:'2026-10-28'});assert.equal(s.xp,88);assert.equal(Object.keys(s.solved).length,1);assert.equal(s.days.length,1);});
+test('Серия сохраняется до конца следующего дня и обрывается после пропуска',()=>{const days=['2026-10-25','2026-10-26','2026-10-27'];assert.equal(currentStreak(days,'2026-10-28'),3);assert.equal(currentStreak(days,'2026-10-29'),0);assert.equal(longestStreak([...days,'2026-10-27','2026-10-29']),3);});
+test('Серия корректна на границе месяца и года',()=>{assert.equal(currentStreak(['2026-12-30','2026-12-31','2027-01-01'],'2027-01-01'),3);});
+test('Открытый разбор попадает на следующий день и снимается после решения',()=>{const s=initialState();addReview(s,c.id,'2026-12-31');assert.equal(s.review[c.id],'2027-01-01');const result=recordSolve(s,c,{clues:4,misses:1,today:'2027-01-01'});assert.ok(result.review);assert.equal(s.reviewWins,1);assert.ok(!s.review[c.id]);});
+test('Достижения зависят от реальных результатов',()=>{const s=initialState();assert.deepEqual(earnedBadges(s),[]);recordSolve(s,c,{clues:2,misses:0,today:'2026-10-28'});const a=earnedBadges(s);for(const id of ['first','early','expert','clean'])assert.ok(a.includes(id));assert.ok(!a.includes('week'));assert.ok(!a.includes('all'));});
+test('Повреждённое или старое сохранение не ломает запуск',()=>{assert.deepEqual(readState('not JSON'),initialState());assert.deepEqual(readState('{"version":0}'),initialState());});

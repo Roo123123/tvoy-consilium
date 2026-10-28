@@ -1,0 +1,21 @@
+window.icon=(name,size=20)=>{const p={
+ profile:'<circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/>',
+ spark:'<path d="m12 2 2.8 7.2L22 12l-7.2 2.8L12 22l-2.8-7.2L2 12l7.2-2.8Z"/>',
+ flame:'<path d="M12 3c1 5 6 6 6 11a6 6 0 0 1-12 0c0-3 2-5 3-7 0 3 2 3 2 5 2-3 1-5 1-9Z"/>',
+ arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>',
+ check:'<path d="m5 12 4 4L19 6"/>',
+ calendar:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-12 4h.01m6 0h.01"/>',
+ book:'<path d="M12 5c-3-3-8-2-9-1v15c3-2 6-1 9 1 3-2 6-3 9-1V4c-3-1-6-2-9 1Zm0 0v15"/>',
+ award:'<circle cx="12" cy="9" r="6"/><path d="m8 14-2 8 6-3 6 3-2-8"/>',
+ target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+ diamond:'<path d="m3 8 4-5h10l4 5-9 13Zm0 0h18M7 3l5 18 5-18"/>',
+ compass:'<circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6Z"/>',
+ repeat:'<path d="M20 7H6l3-3M4 17h14l-3 3M4 11V9a2 2 0 0 1 2-2m14 6v2a2 2 0 0 1-2 2"/>',
+ lock:'<rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/>',
+ close:'<path d="m6 6 12 12M6 18 18 6"/>',
+ download:'<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
+ github:'<path d="M9 19c-4 1-4-2-6-2m12 5v-4c0-1-.3-2-1-2 4-.5 7-2 7-6 0-2-1-3-2-4 .3-1 .3-3 0-4-2 0-3 1-4 2a15 15 0 0 0-6 0C8 3 7 2 5 2c-.3 1-.3 3 0 4-1 1-2 2-2 4 0 4 3 6 7 6-.7.7-1 1-1 2v4"/>',
+ leaf:'<path d="M20 3C9 3 3 7 5 14c2 7 14 6 15-11ZM3 21 15 9"/>',
+ heart:'<path d="M20 5a5 5 0 0 0-8 1 5 5 0 0 0-8-1c-5 5 4 12 8 15 4-3 13-10 8-15Z"/>',
+ grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>'
+};return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p[name]||p.spark}</svg>`;};
